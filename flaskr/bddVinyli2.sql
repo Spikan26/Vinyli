@@ -1,0 +1,75 @@
+DROP TABLE IF EXISTS Genre;
+DROP TABLE IF EXISTS Produit;
+DROP TABLE IF EXISTS Artiste;
+DROP TABLE IF EXISTS Client;
+DROP TABLE IF EXISTS ProduitArtiste;
+DROP TABLE IF EXISTS Panier;
+DROP TABLE IF EXISTS Facturation;
+
+CREATE TABLE Genre (
+  idGenre INTEGER PRIMARY KEY AUTOINCREMENT,
+  nom VARCHAR(45) NOT NULL
+ );
+
+
+CREATE TABLE Produit (
+  idProduit INTEGER PRIMARY KEY AUTOINCREMENT,
+  titre VARCHAR(255) NOT NULL,
+  annee_sortie DATE NULL,
+  prix DECIMAL(2) NOT NULL,
+  quantite INTEGER NOT NULL,
+  description VARCHAR(255) NULL,
+  extrait VARCHAR(255) NULL,
+  image VARCHAR(255) NULL,
+  fk_genre INTEGER NULL,
+  FOREIGN KEY (fk_genre) REFERENCES Genre (idGenre)
+);
+
+
+CREATE TABLE Artiste (
+  idArtiste INTEGER PRIMARY KEY AUTOINCREMENT,
+  nom VARCHAR(45) NOT NULL,
+  bio VARCHAR(255) NULL,
+  image VARCHAR(255) NULL
+);
+
+
+CREATE TABLE Client (
+  idClient INTEGER PRIMARY KEY AUTOINCREMENT,
+  nom VARCHAR(45) NOT NULL,
+  prenom VARCHAR(45) NOT NULL,
+  email VARCHAR(45) NOT NULL,
+  mdp VARCHAR(255) NOT NULL,
+  adresse VARCHAR(255) NULL,
+  code_postal INTEGER NULL,
+  ville VARCHAR(45) NULL
+);
+
+
+CREATE TABLE ProduitArtiste (
+  idMusiqueArtiste INTEGER PRIMARY KEY AUTOINCREMENT,
+  fk_produit INTEGER NULL,
+  fk_artiste INTEGER NULL,
+  FOREIGN KEY (fk_produit) REFERENCES Produit (idProduit),
+  FOREIGN KEY (fk_artiste) REFERENCES Artiste (idArtiste)
+);
+
+
+CREATE TABLE Panier (
+  idPanier INTEGER PRIMARY KEY AUTOINCREMENT,
+  fk_produit INTEGER NULL,
+  fk_client INTEGER NULL,
+  valide BOOLEAN NULL,
+  FOREIGN KEY (fk_produit) REFERENCES Produit (idProduit),
+  FOREIGN KEY (fk_client) REFERENCES Client (idClient)
+);
+
+
+CREATE TABLE Facturation (
+  idFacturation INTEGER PRIMARY KEY AUTOINCREMENT,
+  fk_panier INTEGER NULL,
+  date DATETIME NOT NULL,
+  prix_total DECIMAL(2) NOT NULL,
+  FOREIGN KEY (fk_panier) REFERENCES Panier (idPanier)
+);
+

@@ -1,10 +1,10 @@
-CREATE TABLE IF NOT EXISTS `mydb`.`Genre` (
+CREATE TABLE IF NOT EXISTS `vinyliDB`.`Genre` (
   `idGenre` INT NOT NULL,
   `nom` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`idGenre`));
 
 
-CREATE TABLE IF NOT EXISTS `mydb`.`Produit` (
+CREATE TABLE IF NOT EXISTS `vinyliDB`.`Produit` (
   `idProduit` INT NOT NULL,
   `titre` VARCHAR(255) NOT NULL,
   `annee_sortie` DATE NULL,
@@ -18,12 +18,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Produit` (
   INDEX `idGenre_idx` (`fk_genre` ASC),
   CONSTRAINT `idGenre`
     FOREIGN KEY (`fk_genre`)
-    REFERENCES `mydb`.`Genre` (`idGenre`)
+    REFERENCES `vinyliDB`.`Genre` (`idGenre`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 
-CREATE TABLE IF NOT EXISTS `mydb`.`Artiste` (
+CREATE TABLE IF NOT EXISTS `vinyliDB`.`Artiste` (
   `idArtiste` INT NOT NULL,
   `nom` VARCHAR(45) NOT NULL,
   `bio` VARCHAR(255) NULL,
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Artiste` (
   PRIMARY KEY (`idArtiste`));
 
 
-CREATE TABLE IF NOT EXISTS `mydb`.`Client` (
+CREATE TABLE IF NOT EXISTS `vinyliDB`.`Client` (
   `idClient` INT NOT NULL,
   `nom` VARCHAR(45) NOT NULL,
   `prenom` VARCHAR(45) NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Client` (
   UNIQUE INDEX `email_UNIQUE` (`email` ASC));
 
 
-CREATE TABLE IF NOT EXISTS `mydb`.`ProduitArtiste` (
+CREATE TABLE IF NOT EXISTS `vinyliDB`.`ProduitArtiste` (
   `idMusiqueArtiste` INT NOT NULL,
   `fk_produit` INT NULL,
   `fk_artiste` INT NULL,
@@ -53,17 +53,17 @@ CREATE TABLE IF NOT EXISTS `mydb`.`ProduitArtiste` (
   INDEX `fk_artiste_idx` (`fk_artiste` ASC),
   CONSTRAINT `fk_musique`
     FOREIGN KEY (`fk_produit`)
-    REFERENCES `mydb`.`Produit` (`idProduit`)
+    REFERENCES `vinyliDB`.`Produit` (`idProduit`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_artiste`
     FOREIGN KEY (`fk_artiste`)
-    REFERENCES `mydb`.`Artiste` (`idArtiste`)
+    REFERENCES `vinyliDB`.`Artiste` (`idArtiste`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 
-CREATE TABLE IF NOT EXISTS `mydb`.`Panier` (
+CREATE TABLE IF NOT EXISTS `vinyliDB`.`Panier` (
   `idPanier` INT NOT NULL,
   `fk_produit` INT NULL,
   `fk_client` INT NULL,
@@ -73,17 +73,17 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Panier` (
   INDEX `idClient_idx` (`fk_client` ASC),
   CONSTRAINT `idProduit`
     FOREIGN KEY (`fk_produit`)
-    REFERENCES `mydb`.`Produit` (`idProduit`)
+    REFERENCES `vinyliDB`.`Produit` (`idProduit`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `idClient`
     FOREIGN KEY (`fk_client`)
-    REFERENCES `mydb`.`Client` (`idClient`)
+    REFERENCES `vinyliDB`.`Client` (`idClient`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 
-CREATE TABLE IF NOT EXISTS `mydb`.`Facturation` (
+CREATE TABLE IF NOT EXISTS `vinyliDB`.`Facturation` (
   `idFacturation` INT NOT NULL,
   `fk_panier` INT NULL,
   `date` DATETIME NOT NULL,
@@ -92,6 +92,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`Facturation` (
   INDEX `idPanier_idx` (`fk_panier` ASC),
   CONSTRAINT `idPanier`
     FOREIGN KEY (`fk_panier`)
-    REFERENCES `mydb`.`Panier` (`idPanier`)
+    REFERENCES `vinyliDB`.`Panier` (`idPanier`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
