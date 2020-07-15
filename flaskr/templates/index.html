@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Posts{% endblock %}</h1>
+  {% if g.user %}
+    <a class="action" href="{{ url_for('index.create') }}">New</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% for produit in produits %}
+    <article class="post">
+      <header>
+        <div>
+          <h1>{{ produit['titre'] }}</h1>
+          <div class="about">by {{ produit['prix'] }} on {{ produit['annee_sortie'] }}</div>
+        </div>
+      </header>
+      <p class="body">{{ produit['description'] }}</p>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}
