@@ -13,7 +13,7 @@ bp = Blueprint('index', __name__)
 def index():
     db = get_db()
     produits = db.execute(
-        'SELECT p.idProduit, p.titre, p.annee_sortie, p.prix, p.quantite, p.description'
+        'SELECT p.idProduit, p.titre, p.annee_sortie, p.prix, p.quantite, p.image, p.description'
         ' FROM Produit p '
     ).fetchall()
     return render_template('index.html', produits=produits)
@@ -27,6 +27,7 @@ def create():
         annee_sortie = request.form['annee_sortie']
         prix = request.form['prix']
         quantite = request.form['quantite']
+        image = request.form['image']
         description = request.form['description']
         error = None
 
@@ -38,9 +39,9 @@ def create():
         else:
             db = get_db()
             db.execute(
-                'INSERT INTO Produit (titre, annee_sortie, prix, quantite, description)'
-                ' VALUES (?, ?, ?, ?, ?)',
-                (titre, annee_sortie, prix, quantite, description)
+                'INSERT INTO Produit (titre, annee_sortie, prix, quantite, image, description)'
+                ' VALUES (?, ?, ?, ?, ?, ?)',
+                (titre, annee_sortie, prix, quantite, image, description)
             )
             db.commit()
             return redirect(url_for('index'))
@@ -50,7 +51,7 @@ def create():
 
 def get_post(id, check_author=True):
     post = get_db().execute(
-        'SELECT p.idProduit, p.titre, p.annee_sortie, p.prix, p.quantite, p.description'
+        'SELECT p.idProduit, p.titre, p.annee_sortie, p.prix, p.quantite, p.image, p.description'
         ' FROM Produit p '
         ' WHERE p.idProduit = ?',
         (id,)

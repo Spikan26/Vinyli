@@ -14,6 +14,8 @@
     <input type="number" name="prix" id="prix" value="{{ request.form['prix'] }}" required>
     <label for="quantite">quantite</label>
     <input type="number" name="quantite" id="quantite" value="{{ request.form['quantite'] }}" required>
+    <label for="image">image</label>
+    <input name="image" id="image">{{ request.form['image'] }}</input>
     <label for="description">description</label>
     <textarea name="description" id="description">{{ request.form['description'] }}</textarea>
     <input type="submit" value="Save">
