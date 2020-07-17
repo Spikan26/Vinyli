@@ -1,23 +1,23 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}New Post{% endblock %}</h1>
+    <h1>{% block title %}Nouveau produit{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="titre">titre</label>
-    <input name="titre" id="titre" value="{{ request.form['titre'] }}" required>
-    <label for="annee_sortie">année sortie</label>
-    <input type="date" name="annee_sortie" id="annee_sortie" value="{{ request.form['annee_sortie'] }}" required>
-    <label for="prix">prix</label>
-    <input type="number" name="prix" id="prix" value="{{ request.form['prix'] }}" required>
-    <label for="quantite">quantite</label>
-    <input type="number" name="quantite" id="quantite" value="{{ request.form['quantite'] }}" required>
-    <label for="image">image</label>
-    <input name="image" id="image">{{ request.form['image'] }}</input>
-    <label for="description">description</label>
-    <textarea name="description" id="description">{{ request.form['description'] }}</textarea>
-    <input type="submit" value="Save">
-  </form>
+    <form method="post">
+        <label for="titre">titre</label>
+        <input name="titre" id="titre" value="{{ request.form['titre'] }}" required>
+        <label for="annee_sortie">année sortie</label>
+        <input type="date" name="annee_sortie" id="annee_sortie" value="{{ request.form['annee_sortie'] }}" required>
+        <label for="prix">prix</label>
+        <input type="number" name="prix" id="prix" value="{{ request.form['prix'] }}" required>
+        <label for="quantite">quantite</label>
+        <input type="number" name="quantite" id="quantite" value="{{ request.form['quantite'] }}" required>
+        <label for="image">image</label>
+        <input name="image" id="image">{{ request.form['image'] }}</input>
+        <label for="description">description</label>
+        <textarea name="description" id="description">{{ request.form['description'] }}</textarea>
+        <input type="submit" value="OK">
+    </form>
 {% endblock %}

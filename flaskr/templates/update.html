@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <h1>{% block title %}Modifier "{{ produit['titre'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        <label for="titre">titre</label>
+        <input name="titre" id="titre"
+               value="{{ request.form['titre'] or produit['titre'] }}" required>
+        <label for="annee_sortie">année sortie</label>
+        <input type="date" name="annee_sortie" id="annee_sortie" value="{{ request.form['annee_sortie'] or produit['annee_sortie'] }}" required>
+        <label for="prix">prix</label>
+        <input type="number" name="prix" id="prix" value="{{ request.form['prix'] or produit['prix']}}" required>
+        <label for="quantite">quantite</label>
+        <input type="number" name="quantite" id="quantite" value="{{ request.form['quantite'] or produit['quantite']}}" required>
+        <label for="image">image</label>
+        {% if request.form['image'] or produit['image']%}
+            <input name="image" id="image" value="{{ request.form['image'] or produit['image']}}">
+        {% else %}
+            <input name="image" id="image" placeholder="{{ request.form['image'] or produit['image']}}">
+        {% endif %}
+        <label for="description">description</label>
+        <textarea name="description" id="description">{{ request.form['description'] or produit['description']}}</textarea>
+        <input type="submit" value="OK">
+    </form>
+{% endblock %}
